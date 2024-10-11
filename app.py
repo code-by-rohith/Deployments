@@ -64,11 +64,3 @@ if __name__ == '__main__':
         db.create_all()
     app.run(debug=True)
 
-
-echo "# Deployments" >> README.md
-git init
-git add README.md
-git commit -m "first commit"
-git branch -M main
-git remote add origin https://github.com/code-by-rohith/Deployments.git
-git push -u origin main
