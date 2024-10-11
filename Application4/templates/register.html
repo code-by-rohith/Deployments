@@ -1,0 +1,26 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+</head>
+<body>
+    <h1>Register</h1>
+    <form action="{{ url_for('register') }}" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <br>
+        <input type="submit" value="Register">
+    </form>
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+    <br>
+    <a href="{{ url_for('main') }}">Back to User List</a>
+</body>
+</html>
