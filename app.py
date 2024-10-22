@@ -1,85 +1,47 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for
 from pymongo import MongoClient
-from datetime import datetime
+import os
 
 app = Flask(__name__)
 
-# MongoDB Connection
-client = MongoClient('your-mongo-connection-string')
-db = client['library_db']
+# MongoDB connection
+mongo_uri = os.getenv("MONGODB_URI")  # This will still use the environment variable from Render
+client = MongoClient(mongo_uri)
+db = client['library']  # Replace with your database name
 books_collection = db['books']
-issues_collection = db['issues']
-
 
 @app.route('/')
 def home():
-    return render_template('home.html')
+    books = books_collection.find()
+    return render_template('home.html', books=books)
 
-
-# Add a new book
 @app.route('/add', methods=['GET', 'POST'])
 def add_book():
     if request.method == 'POST':
         title = request.form['title']
         author = request.form['author']
-        genre = request.form['genre']
         year = request.form['year']
-        books_collection.insert_one({
-            'title': title,
-            'author': author,
-            'genre': genre,
-            'year': year,
-            'availability': True
-        })
-        flash('Book added successfully!', 'success')
-        return redirect(url_for('list_books'))
+        books_collection.insert_one({'title': title, 'author': author, 'year': year})
+        return redirect(url_for('home'))
     return render_template('add_book.html')
 
-
-# List all books with search and filter
-@app.route('/books', methods=['GET', 'POST'])
-def list_books():
-    search = request.form.get('search')
-    genre = request.form.get('genre')
-
-    query = {}
-    if search:
-        query['title'] = {'$regex': search, '$options': 'i'}
-    if genre:
-        query['genre'] = genre
-
-    books = books_collection.find(query)
-    return render_template('book_list.html', books=books)
-
-
-# Issue a book
-@app.route('/issue/<book_id>', methods=['GET', 'POST'])
-def issue_book(book_id):
-    book = books_collection.find_one({'_id': book_id})
+@app.route('/issue', methods=['GET', 'POST'])
+def issue_book():
+    books = books_collection.find()
     if request.method == 'POST':
-        user = request.form['user']
-        return_date = request.form['return_date']
-        books_collection.update_one({'_id': book_id}, {'$set': {'availability': False}})
-        issues_collection.insert_one({
-            'book_id': book_id,
-            'user': user,
-            'issue_date': datetime.now(),
-            'return_date': return_date
-        })
-        flash('Book issued successfully!', 'success')
-        return redirect(url_for('list_books'))
+        book_id = request.form['book_id']
+        # Logic to issue the book goes here
+        return redirect(url_for('home'))
+    return render_template('issue_book.html', books=books)
 
-    return render_template('issue_book.html', book=book)
-
-
-# Return a book
-@app.route('/return/<book_id>', methods=['POST'])
-def return_book(book_id):
-    books_collection.update_one({'_id': book_id}, {'$set': {'availability': True}})
-    issues_collection.delete_one({'book_id': book_id})
-    flash('Book returned successfully!', 'success')
-    return redirect(url_for('list_books'))
-
+@app.route('/return', methods=['GET', 'POST'])
+def return_book():
+    books = books_collection.find()
+    if request.method == 'POST':
+        book_id = request.form['book_id']
+        # Logic to return the book goes here
+        return redirect(url_for('home'))
+    return render_template('return_book.html', books=books)
 
 if __name__ == '__main__':
     app.run(debug=True)
