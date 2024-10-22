@@ -1,4 +1,4 @@
-body {
+\body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -61,6 +61,7 @@ h2 {
     flex-direction: column;
     justify-content: space-between;
     height: 100%; /* Ensure equal height for all book items */
+    position: relative; /* Allow proper positioning of buttons */
 }
 
 .book-item:hover {
@@ -86,6 +87,10 @@ h2 {
     display: flex;
     justify-content: space-between;
     margin-top: 15px; /* Add margin to separate the buttons from the content */
+    position: absolute; /* Positioning buttons at the bottom */
+    bottom: 15px; /* Space between the button and the bottom of the container */
+    left: 15px;
+    right: 15px;
 }
 
 button {
