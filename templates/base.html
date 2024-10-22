@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <title>Library Management</title>
+    <title>Library Management System</title>
 </head>
 <body>
     <header>
         <h1>Library Management System</h1>
-        <nav>
+        <nav class="navbar">
             <a href="{{ url_for('home') }}">Home</a>
             {% if session.username %}
                 <a href="{{ url_for('logout') }}">Logout</a>

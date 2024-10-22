@@ -19,7 +19,7 @@ ADMIN_PASSWORD = "admin123"
 # Home Route - Show login and signup
 @app.route('/')
 def home():
-    return render_template('home.html')  # Home page with login/signup only
+    return render_template('home.html')
 
 # Signup Route
 @app.route('/signup', methods=['GET', 'POST'])
@@ -72,20 +72,12 @@ def login():
 # User Home Route - List all books
 @app.route('/home_user')
 def home_user():
-    if 'username' not in session:
-        flash('Please log in to view the book list.', 'danger')
-        return redirect(url_for('home'))
-
     books = books_collection.find()
     return render_template('book_list.html', books=books)
 
 # Admin Home Route - List all books with admin options
 @app.route('/home_admin')
 def home_admin():
-    if 'username' not in session:
-        flash('Please log in to access admin features.', 'danger')
-        return redirect(url_for('home'))
-
     books = books_collection.find()
     return render_template('book_list_admin.html', books=books)
 

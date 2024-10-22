@@ -5,63 +5,68 @@ body {
 }
 
 header {
-    background-color: #35424a;
-    color: #ffffff;
-    padding: 10px 0;
-    text-align: center;
+    background-color: #232f3e; /* Dark Amazon color */
+    color: white;
+    padding: 10px;
 }
 
-nav {
-    display: flex;
-    justify-content: center;
-    background-color: #35424a;
-    padding: 10px 0;
+h1 {
+    margin: 0;
+    display: inline-block;
 }
 
-nav a {
-    color: #ffffff;
-    padding: 10px 15px;
+.navbar {
+    float: right;
+}
+
+.navbar a {
+    color: white;
     text-decoration: none;
-    margin: 0 5px; /* Space between links */
-    border-radius: 4px; /* Rounded corners */
-    transition: background-color 0.3s; /* Smooth transition */
+    padding: 10px;
 }
 
-nav a:hover {
-    background-color: #e8491d; /* Change background on hover */
+.navbar a:hover {
+    background-color: #37475a; /* Slightly lighter shade */
+}
+
+.main {
+    padding: 20px;
 }
 
 .flashes {
     list-style-type: none;
     padding: 0;
-    margin: 10px;
 }
 
 .flashes li {
-    margin: 5px 0;
     padding: 10px;
-    border-radius: 4px;
-    color: #fff;
+    margin: 5px 0;
 }
 
 .flashes .success {
-    background-color: #28a745; /* Green for success */
+    background-color: #dff0d8;
+    color: #3c763d;
 }
 
 .flashes .danger {
-    background-color: #dc3545; /* Red for danger */
+    background-color: #f2dede;
+    color: #a94442;
 }
 
 .flashes .info {
-    background-color: #17a2b8; /* Blue for info */
+    background-color: #d9edf7;
+    color: #31708f;
 }
 
-/* Responsive Design */
-@media (max-width: 600px) {
-    nav {
-        flex-direction: column; /* Stack links vertically on small screens */
-    }
-    nav a {
-        margin: 5px 0; /* Space between stacked links */
-    }
+.book-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.book-item {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    flex: 1 1 30%; /* Responsive layout */
 }
