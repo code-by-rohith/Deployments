@@ -18,19 +18,20 @@ def create_admin_user():
     if not admin:
         users_collection.insert_one({
             "username": "admin",
-            "password": "admin123",
+            "password": "admin123",  # Admin credentials
             "role": "admin"
         })
 
 create_admin_user()
 
-# Home Route - Show login/signup or list of books
+# Home Route - List all books
 @app.route('/')
 def home():
-    if 'username' in session:
+    if 'username' not in session:
+        return render_template('login_signup.html')  # Show login and signup only
+    else:
         books = books_collection.find()
-        return render_template('home.html', books=books)  # Display books if logged in
-    return render_template('login_signup.html')  # Display login/signup if not logged in
+        return render_template('book_list.html', books=books)
 
 # Signup Route
 @app.route('/signup', methods=['GET', 'POST'])
@@ -77,7 +78,7 @@ def logout():
     session.pop('username', None)
     session.pop('role', None)
     flash('You have been logged out.', 'info')
-    return redirect(url_for('home'))
+    return redirect(url_for('home'))  # Redirect to home (login/signup)
 
 # Add Book Route
 @app.route('/add', methods=['GET', 'POST'])
