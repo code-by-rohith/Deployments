@@ -125,3 +125,24 @@ li a:hover {
         margin-top: 10px;
     }
 }
+.book-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.book-item {
+    border: 1px solid #ccc;
+    padding: 15px;
+    background-color: #f9f9f9;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.book-item strong {
+    font-size: 18px;
+}
+
+.book-item a {
+    text-decoration: none;
+    color: #007bff;
+}
