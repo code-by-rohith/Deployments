@@ -24,7 +24,7 @@ nav a:hover {
 
 .container {
     width: 100%;
-    max-width: 800px; /* Increased for book list */
+    max-width: 1200px; /* Adjusted for larger book list */
     margin: 50px auto;
     padding: 20px;
     background-color: white;
@@ -44,18 +44,20 @@ h2 {
 
 .book-container {
     display: flex;
-    flex-direction: column;
-    gap: 20px; /* Space between book items */
+    flex-wrap: wrap; /* Allows multiple rows */
+    justify-content: space-between; /* Space between the items */
+    gap: 20px;
 }
 
 .book-item {
+    flex: 1 1 calc(33.333% - 20px); /* Responsive layout with 3 items per row */
     border: 1px solid #ccc;
     padding: 15px;
     border-radius: 4px;
     transition: box-shadow 0.3s;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center; /* Align items vertically */
 }
 
 .book-item:hover {
@@ -63,12 +65,28 @@ h2 {
 }
 
 .book-item h3 {
+    margin: 0 0 10px 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.book-details {
+    flex-grow: 1;
+}
+
+.book-details p {
     margin: 0;
-    flex-grow: 1; /* Allow title to take available space */
+    color: #555;
+}
+
+.book-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
 }
 
 button {
-    padding: 5px 10px; /* Smaller buttons */
+    padding: 8px 15px; /* Consistent button sizing */
     background-color: #0073e6; /* Button color */
     color: white;
     border: none;
@@ -117,4 +135,17 @@ input[type="text"]:focus, input[type="password"]:focus {
 
 .flashes .info {
     background-color: #17a2b8; /* Info message color */
+}
+
+/* Responsive layout */
+@media (max-width: 768px) {
+    .book-item {
+        flex: 1 1 calc(50% - 20px); /* 2 items per row on medium screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .book-item {
+        flex: 1 1 100%; /* 1 item per row on small screens */
+    }
 }
