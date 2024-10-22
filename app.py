@@ -5,8 +5,7 @@ import os
 
 app = Flask(__name__)
 
-# MongoDB configuration
-client = MongoClient("mongodb+srv://root:lingavani@cluster1.okylwxq.mongodb.net/library_db?retryWrites=true&w=majority")
+client = MongoClient(os.getenv("MONGO_URI"))
 db = client['library_db']  # Use your actual database name
 books_collection = db['books']
 
