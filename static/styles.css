@@ -53,6 +53,9 @@ h2 {
     padding: 15px;
     border-radius: 4px;
     transition: box-shadow 0.3s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Align items vertically */
 }
 
 .book-item:hover {
@@ -61,11 +64,11 @@ h2 {
 
 .book-item h3 {
     margin: 0;
+    flex-grow: 1; /* Allow title to take available space */
 }
 
 button {
-    width: 100%;
-    padding: 10px;
+    padding: 5px 10px; /* Smaller buttons */
     background-color: #0073e6; /* Button color */
     color: white;
     border: none;
@@ -76,7 +79,7 @@ button {
 
 button:hover {
     background-color: #005bb5; /* Darker on hover */
-    transform: translateY(-2px);
+    transform: translateY(-1px);
 }
 
 input[type="text"], input[type="password"] {
