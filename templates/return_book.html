@@ -1,16 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Return Book: {{ book['title'] }}</h2>
-
+<h2>Return a Book</h2>
 <form method="POST">
-    <div>
-        <p>Are you sure you want to return this book?</p>
-    </div>
-    <div>
-        <button type="submit">Return Book</button>
-    </div>
+    <label for="book_id">Select Book:</label>
+    <select id="book_id" name="book_id" required>
+        {% for book in books %}
+        <option value="{{ book['_id'] }}">{{ book['title'] }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">Return Book</button>
 </form>
-
-<a href="{{ url_for('list_books') }}">Back to Book List</a>
 {% endblock %}

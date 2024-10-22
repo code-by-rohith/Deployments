@@ -1,33 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>All Books</h2>
-
-<form method="POST" action="{{ url_for('list_books') }}">
-    <input type="text" name="search" placeholder="Search by title">
-    <select name="genre">
-        <option value="">All Genres</option>
-        <option value="Fiction">Fiction</option>
-        <option value="Non-fiction">Non-fiction</option>
-        <option value="Science">Science</option>
-    </select>
-    <button type="submit">Search</button>
-</form>
-
+<h2>Book List</h2>
 <div class="book-container">
     {% for book in books %}
-        <div class="book-item">
-            <strong>{{ book['title'] }}</strong><br>
-            by {{ book['author'] }} ({{ book['year'] }})<br>
-            Genre: {{ book['genre'] }}<br>
-            {% if book['availability'] %}
-                <span style="color:green;">Available</span><br>
-                <a href="{{ url_for('issue_book', book_id=book['_id']) }}">Issue</a>
-            {% else %}
-                <span style="color:red;">Not Available</span><br>
-                <a href="{{ url_for('return_book', book_id=book['_id']) }}">Return</a>
-            {% endif %}
-        </div>
+    <div class="book-item">
+        <strong>{{ book['title'] }}</strong> by {{ book['author'] }} ({{ book['year'] }})
+        <a href="#">Edit</a> | <a href="#">Delete</a>
+    </div>
     {% endfor %}
 </div>
 {% endblock %}
