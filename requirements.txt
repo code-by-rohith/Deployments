@@ -1,4 +1,5 @@
 flask
-flask-sqlalchemy
+pymongo
+dnspython
 jinja2
 gunicorn

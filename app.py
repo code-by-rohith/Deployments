@@ -1,66 +1,55 @@
-from flask import Flask, render_template, redirect, request, jsonify, session, url_for
-from flask_sqlalchemy import SQLAlchemy
+from flask import Flask, render_template, request, redirect, url_for
+from pymongo import MongoClient
+from bson.objectid import ObjectId
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.secret_key = 'wkjndwjkdnwkjn55'
+# MongoDB configuration
+client = MongoClient("mongodb+srv://root:lingavani@cluster1.okylwxq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1")
+db = client['library_db']  # Replace with your database name
+books_collection = db['books']
 
-db = SQLAlchemy(app)
-
-class User(db.Model):
-    id = db.Column(db.Integer, unique=True, primary_key=True)
-    name = db.Column(db.String(50))
-    email = db.Column(db.String(120), unique=True)
-
-    def __repr__(self):
-        return f'<User {self.name}>'
-
+# Home Route - List all books
 @app.route('/')
-def main():
-    users = User.query.all()
-    return render_template('index.html', users=users)
+def home():
+    books = books_collection.find()
+    return render_template('book_list.html', books=books)
 
-@app.route('/register', methods=['GET', 'POST'])
-def register():
+# Add Book Route
+@app.route('/add', methods=['GET', 'POST'])
+def add_book():
     if request.method == 'POST':
-        name = request.form.get('name')
-        email = request.form.get('email')
-        
-        existing_user = User.query.filter_by(email=email).first()
-        if existing_user:
-            return render_template('register.html', message='Email already exists!'), 400
-        
-        new_user = User(name=name, email=email)
-        db.session.add(new_user)
-        db.session.commit()
-        
-        session['logged'] = name
-        return redirect(url_for('main'))
+        title = request.form['title']
+        author = request.form['author']
+        year = request.form['year']
+        books_collection.insert_one({
+            'title': title,
+            'author': author,
+            'year': year
+        })
+        return redirect(url_for('home'))
+    return render_template('add_book.html')
 
-    return render_template('register.html')
-
-@app.route('/edit/<int:user_id>', methods=['GET', 'POST'])
-def edit(user_id):
-    user = User.query.get_or_404(user_id)
-    
+# Edit Book Route
+@app.route('/edit/<book_id>', methods=['GET', 'POST'])
+def edit_book(book_id):
+    book = books_collection.find_one({'_id': ObjectId(book_id)})
     if request.method == 'POST':
-        user.name = request.form.get('name')
-        user.email = request.form.get('email')
-        db.session.commit()
-        return redirect(url_for('main'))    
-    return render_template('edit.html', user=user)
+        title = request.form['title']
+        author = request.form['author']
+        year = request.form['year']
+        books_collection.update_one(
+            {'_id': ObjectId(book_id)},
+            {"$set": {'title': title, 'author': author, 'year': year}}
+        )
+        return redirect(url_for('home'))
+    return render_template('edit_book.html', book=book)
 
-@app.route('/delete/<int:user_id>', methods=['POST'])
-def delete(user_id):
-    user = User.query.get_or_404(user_id)
-    db.session.delete(user)
-    db.session.commit()
-    return redirect(url_for('main'))
+# Delete Book Route
+@app.route('/delete/<book_id>')
+def delete_book(book_id):
+    books_collection.delete_one({'_id': ObjectId(book_id)})
+    return redirect(url_for('home'))
 
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
     app.run(debug=True)
-
