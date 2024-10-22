@@ -2,35 +2,73 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #f4f4f4;
 }
 
 header {
-    background-color: #232f3e; /* Dark Amazon color */
+    background-color: #232f3e; /* Amazon-like navbar color */
     color: white;
-    padding: 10px;
+    padding: 10px 20px;
+    text-align: center;
 }
 
-h1 {
-    margin: 0;
-    display: inline-block;
-}
-
-.navbar {
-    float: right;
-}
-
-.navbar a {
+nav a {
     color: white;
+    margin: 0 15px;
     text-decoration: none;
-    padding: 10px;
 }
 
-.navbar a:hover {
-    background-color: #37475a; /* Slightly lighter shade */
+nav a:hover {
+    text-decoration: underline;
 }
 
-.main {
+.container {
+    width: 100%;
+    max-width: 400px;
+    margin: 50px auto;
     padding: 20px;
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    transition: transform 0.3s;
+}
+
+.container:hover {
+    transform: scale(1.02);
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border 0.3s;
+}
+
+input[type="text"]:focus, input[type="password"]:focus {
+    border: 1px solid #0073e6; /* Highlight color on focus */
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #0073e6; /* Button color */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+button:hover {
+    background-color: #005bb5; /* Darker on hover */
+    transform: translateY(-2px);
 }
 
 .flashes {
@@ -40,33 +78,19 @@ h1 {
 
 .flashes li {
     padding: 10px;
-    margin: 5px 0;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    color: white;
 }
 
 .flashes .success {
-    background-color: #dff0d8;
-    color: #3c763d;
+    background-color: #28a745; /* Success message color */
 }
 
 .flashes .danger {
-    background-color: #f2dede;
-    color: #a94442;
+    background-color: #dc3545; /* Danger message color */
 }
 
 .flashes .info {
-    background-color: #d9edf7;
-    color: #31708f;
-}
-
-.book-container {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.book-item {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    margin: 10px;
-    flex: 1 1 30%; /* Responsive layout */
+    background-color: #17a2b8; /* Info message color */
 }
