@@ -42,18 +42,20 @@ h2 {
     color: #333;
 }
 
+/* Book container with 3 columns per row */
 .book-container {
     display: flex;
-    flex-wrap: wrap; /* Allows multiple rows */
+    flex-wrap: wrap; /* Allow multiple rows */
     justify-content: space-between; /* Space between the items */
     gap: 20px;
 }
 
 .book-item {
-    flex: 1 1 calc(33.333% - 20px); /* Responsive layout with 3 items per row */
+    flex: 1 1 calc(33.333% - 20px); /* 3 items per row, with space between */
     border: 1px solid #ccc;
     padding: 15px;
     border-radius: 4px;
+    background-color: #fff;
     transition: box-shadow 0.3s;
     display: flex;
     flex-direction: column;
@@ -75,7 +77,7 @@ h2 {
 }
 
 .book-details p {
-    margin: 0;
+    margin: 5px 0;
     color: #555;
 }
 
@@ -86,8 +88,8 @@ h2 {
 }
 
 button {
-    padding: 8px 15px; /* Consistent button sizing */
-    background-color: #0073e6; /* Button color */
+    padding: 8px 15px;
+    background-color: #0073e6;
     color: white;
     border: none;
     border-radius: 4px;
@@ -96,7 +98,7 @@ button {
 }
 
 button:hover {
-    background-color: #005bb5; /* Darker on hover */
+    background-color: #005bb5;
     transform: translateY(-1px);
 }
 
@@ -138,13 +140,13 @@ input[type="text"]:focus, input[type="password"]:focus {
 }
 
 /* Responsive layout */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .book-item {
         flex: 1 1 calc(50% - 20px); /* 2 items per row on medium screens */
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
     .book-item {
         flex: 1 1 100%; /* 1 item per row on small screens */
     }
