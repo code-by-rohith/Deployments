@@ -1,4 +1,4 @@
-\body {
+body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -46,7 +46,7 @@ h2 {
 .book-container {
     display: flex;
     flex-wrap: wrap; /* Allow multiple rows */
-    justify-content: space-between; /* Space between the items */
+    justify-content: space-between; /* Space between items */
     gap: 20px;
 }
 
@@ -59,9 +59,7 @@ h2 {
     transition: box-shadow 0.3s;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    height: 100%; /* Ensure equal height for all book items */
-    position: relative; /* Allow proper positioning of buttons */
+    justify-content: space-between; /* Ensure space between text and buttons */
 }
 
 .book-item:hover {
@@ -75,7 +73,7 @@ h2 {
 }
 
 .book-details {
-    flex-grow: 1;
+    flex-grow: 1; /* Grow the details section to fill space */
 }
 
 .book-details p {
@@ -84,13 +82,9 @@ h2 {
 }
 
 .book-actions {
+    margin-top: 10px; /* Add space above the button actions */
     display: flex;
-    justify-content: space-between;
-    margin-top: 15px; /* Add margin to separate the buttons from the content */
-    position: absolute; /* Positioning buttons at the bottom */
-    bottom: 15px; /* Space between the button and the bottom of the container */
-    left: 15px;
-    right: 15px;
+    justify-content: space-between; /* Space between buttons */
 }
 
 button {
@@ -101,7 +95,6 @@ button {
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
-    width: 100px; /* Set width for consistency */
 }
 
 button:hover {
@@ -109,12 +102,8 @@ button:hover {
     transform: translateY(-1px);
 }
 
-/* Button container alignment fix */
-.book-actions a {
-    display: inline-block; /* Ensure buttons are not stretched */
-}
-
-input[type="text"], input[type="password"] {
+input[type="text"],
+input[type="password"] {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
@@ -123,7 +112,8 @@ input[type="text"], input[type="password"] {
     transition: border 0.3s;
 }
 
-input[type="text"]:focus, input[type="password"]:focus {
+input[type="text"]:focus,
+input[type="password"]:focus {
     border: 1px solid #0073e6; /* Highlight color on focus */
 }
 
