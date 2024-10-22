@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="home-container">
+    <h1>Welcome to the Library Management System</h1>
+    <p>Manage your library efficiently with our system. You can view books, issue books, return them, and much more.</p>
+
+    <div class="action-links">
+        <a href="{{ url_for('list_books') }}">View All Books</a>
+        <a href="{{ url_for('add_book') }}">Add a New Book</a>
+    </div>
+</div>
+{% endblock %}
