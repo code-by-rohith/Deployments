@@ -16,12 +16,10 @@ users_collection = db['users']  # Collection to store user data
 ADMIN_USERNAME = "admin"
 ADMIN_PASSWORD = "admin123"
 
-
 # Home Route - Show login and signup
 @app.route('/')
 def home():
-    return render_template('home.html')
-
+    return render_template('home.html')  # Home page with login/signup only
 
 # Signup Route
 @app.route('/signup', methods=['GET', 'POST'])
@@ -43,7 +41,6 @@ def signup():
             return redirect(url_for('login'))
 
     return render_template('signup.html')
-
 
 # Login Route
 @app.route('/login', methods=['GET', 'POST'])
@@ -72,20 +69,25 @@ def login():
 
     return render_template('login.html')
 
-
 # User Home Route - List all books
 @app.route('/home_user')
 def home_user():
+    if 'username' not in session:
+        flash('Please log in to view the book list.', 'danger')
+        return redirect(url_for('home'))
+
     books = books_collection.find()
     return render_template('book_list.html', books=books)
-
 
 # Admin Home Route - List all books with admin options
 @app.route('/home_admin')
 def home_admin():
+    if 'username' not in session:
+        flash('Please log in to access admin features.', 'danger')
+        return redirect(url_for('home'))
+
     books = books_collection.find()
     return render_template('book_list_admin.html', books=books)
-
 
 # Logout Route
 @app.route('/logout')
@@ -94,7 +96,6 @@ def logout():
     session.pop('role', None)
     flash('You have been logged out.', 'info')
     return redirect(url_for('home'))
-
 
 # Add Book Route
 @app.route('/add', methods=['GET', 'POST'])
@@ -116,7 +117,6 @@ def add_book():
         return redirect(url_for('home_admin'))
     return render_template('add_book.html')
 
-
 # Edit Book Route
 @app.route('/edit/<book_id>', methods=['GET', 'POST'])
 def edit_book(book_id):
@@ -137,7 +137,6 @@ def edit_book(book_id):
         return redirect(url_for('home_admin'))
     return render_template('edit_book.html', book=book)
 
-
 # Delete Book Route
 @app.route('/delete/<book_id>')
 def delete_book(book_id):
@@ -148,7 +147,6 @@ def delete_book(book_id):
     books_collection.delete_one({'_id': ObjectId(book_id)})
     flash('Book deleted successfully!', 'success')
     return redirect(url_for('home_admin'))
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
