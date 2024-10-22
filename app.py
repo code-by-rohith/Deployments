@@ -2,7 +2,6 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 import os
-import bcrypt  # For password hashing
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)  # Use a random secret key for sessions
@@ -17,20 +16,21 @@ users_collection = db['users']  # Collection to store user data
 def create_admin_user():
     admin = users_collection.find_one({'username': 'admin'})
     if not admin:
-        hashed_password = bcrypt.hashpw(b'admin123', bcrypt.gensalt())  # Hash the password
         users_collection.insert_one({
             "username": "admin",
-            "password": hashed_password,
+            "password": "admin123",
             "role": "admin"
         })
 
 create_admin_user()
 
-# Home Route - List all books
+# Home Route - Show login/signup or list of books
 @app.route('/')
 def home():
-    books = books_collection.find()
-    return render_template('home.html', books=books)
+    if 'username' in session:
+        books = books_collection.find()
+        return render_template('home.html', books=books)  # Display books if logged in
+    return render_template('login_signup.html')  # Display login/signup if not logged in
 
 # Signup Route
 @app.route('/signup', methods=['GET', 'POST'])
@@ -43,10 +43,9 @@ def signup():
         if users_collection.find_one({'username': username}):
             flash('Username already exists. Please choose a different username.', 'danger')
         else:
-            hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())  # Hash the password
             users_collection.insert_one({
                 'username': username,
-                'password': hashed_password,
+                'password': password,
                 'role': role
             })
             flash('Signup successful! You can now log in.', 'success')
@@ -60,10 +59,9 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        user = users_collection.find_one({'username': username})
+        user = users_collection.find_one({'username': username, 'password': password})
 
-        # Check password hash
-        if user and bcrypt.checkpw(password.encode('utf-8'), user['password']):
+        if user:
             session['username'] = username
             session['role'] = user['role']  # Store user role (admin/user)
             flash('Login successful!', 'success')
