@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
-
 {% block content %}
 <h2>Book List</h2>
 <div class="book-container">
     {% for book in books %}
     <div class="book-item">
-        <strong>{{ book['title'] }}</strong> by {{ book['author'] }} ({{ book['year'] }})
-        <a href="#">Edit</a> | <a href="#">Delete</a>
+        <strong>{{ book['title'] }}</strong>
+        <p>Author: {{ book['author'] }}</p>
+        <p>Year: {{ book['year'] }}</p>
     </div>
     {% endfor %}
 </div>

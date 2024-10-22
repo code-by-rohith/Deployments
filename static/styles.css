@@ -33,18 +33,6 @@ nav a:hover {
     text-decoration: underline;
 }
 
-/* Responsive Navbar for mobile */
-@media (max-width: 768px) {
-    nav {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    nav a {
-        margin: 10px 0;
-    }
-}
-
 /* Main Content */
 main {
     padding: 20px;
@@ -87,7 +75,6 @@ form input {
     font-size: 1rem;
     border: 1px solid #ddd;
     border-radius: 5px;
-    width: 100%;
 }
 
 /* Book List */
@@ -116,17 +103,6 @@ li a:hover {
 }
 
 /* Responsive List */
-@media (max-width: 768px) {
-    li {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    li a {
-        margin-top: 10px;
-    }
-}
-
-/* Book Grid Layout */
 .book-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -138,35 +114,13 @@ li a:hover {
     padding: 15px;
     background-color: #f9f9f9;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-    text-align: center;
 }
 
 .book-item strong {
     font-size: 18px;
-    display: block;
-    margin-bottom: 10px;
-}
-
-.book-item p {
-    font-size: 14px;
-    color: #666;
-    margin: 5px 0;
 }
 
 .book-item a {
     text-decoration: none;
     color: #007bff;
-    display: inline-block;
-    margin-top: 10px;
-}
-
-.book-item a:hover {
-    text-decoration: underline;
-}
-
-/* Responsive Book Grid */
-@media (max-width: 768px) {
-    .book-container {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    }
 }

@@ -5,15 +5,19 @@ import os
 app = Flask(__name__)
 
 # MongoDB connection
-mongo_uri = os.getenv("MONGODB_URI")  # This will still use the environment variable from Render
+mongo_uri = os.getenv("MONGODB_URI")
 client = MongoClient(mongo_uri)
 db = client['library']  # Replace with your database name
 books_collection = db['books']
 
 @app.route('/')
 def home():
+    return render_template('home.html')
+
+@app.route('/books')
+def book_list():
     books = books_collection.find()
-    return render_template('home.html', books=books)
+    return render_template('book_list.html', books=books)
 
 @app.route('/add', methods=['GET', 'POST'])
 def add_book():
@@ -30,7 +34,7 @@ def issue_book():
     books = books_collection.find()
     if request.method == 'POST':
         book_id = request.form['book_id']
-        # Logic to issue the book goes here
+        # Logic to issue the book goes here (you can store the issued status)
         return redirect(url_for('home'))
     return render_template('issue_book.html', books=books)
 
@@ -39,7 +43,7 @@ def return_book():
     books = books_collection.find()
     if request.method == 'POST':
         book_id = request.form['book_id']
-        # Logic to return the book goes here
+        # Logic to return the book goes here (you can store the returned status)
         return redirect(url_for('home'))
     return render_template('return_book.html', books=books)
 
