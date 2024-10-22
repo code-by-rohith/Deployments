@@ -1,22 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Book List</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-</head>
-<body>
-    <h1>Your Book List</h1>
-    <div class="container">
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h2>Available Books</h2>
+    <div class="book-container">
         {% for book in books %}
-            <div class="book-card">
-                <h3>{{ book.title }}</h3>
-                <p><strong>Author:</strong> {{ book.author }}</p>
-                <p><strong>Year:</strong> {{ book.year }}</p>
-            </div>
+        <div class="book-item">
+            <h3>{{ book['title'] }}</h3>
+            <p><strong>Author:</strong> {{ book['author'] }}</p>
+            <p><strong>Year:</strong> {{ book['year'] }}</p>
+        </div>
         {% endfor %}
     </div>
-    <a href="{{ url_for('logout') }}">Logout</a>
-</body>
-</html>
+    <div style="text-align: center;">
+        <a href="{{ url_for('logout') }}">
+            <button>Logout</button>
+        </a>
+    </div>
+</div>
+{% endblock %}
