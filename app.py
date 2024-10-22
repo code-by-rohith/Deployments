@@ -1,10 +1,13 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from pymongo import MongoClient
 from bson.objectid import ObjectId
+from werkzeug.security import generate_password_hash, check_password_hash
 import os
+from datetime import timedelta
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)  # Use a random secret key for sessions
+app.permanent_session_lifetime = timedelta(minutes=30)  # Set session expiration time
 
 # MongoDB connection
 client = MongoClient(os.getenv("MONGO_URI"))
@@ -32,9 +35,10 @@ def signup():
         if users_collection.find_one({'username': username}):
             flash('Username already exists. Please choose a different username.', 'danger')
         else:
+            hashed_password = generate_password_hash(password)
             users_collection.insert_one({
                 'username': username,
-                'password': password,
+                'password': hashed_password,
                 'role': role
             })
             flash('Signup successful! You can now log in.', 'success')
@@ -57,9 +61,8 @@ def login():
             return redirect(url_for('home_admin'))
 
         # Check for regular users in the database
-        user = users_collection.find_one({'username': username, 'password': password})
-
-        if user:
+        user = users_collection.find_one({'username': username})
+        if user and check_password_hash(user['password'], password):
             session['username'] = username
             session['role'] = user['role']  # Store user role (user)
             flash('Login successful!', 'success')
