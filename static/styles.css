@@ -24,7 +24,7 @@ nav a:hover {
 
 .container {
     width: 100%;
-    max-width: 400px;
+    max-width: 800px; /* Increased for book list */
     margin: 50px auto;
     padding: 20px;
     background-color: white;
@@ -42,17 +42,25 @@ h2 {
     color: #333;
 }
 
-input[type="text"], input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    transition: border 0.3s;
+.book-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Space between book items */
 }
 
-input[type="text"]:focus, input[type="password"]:focus {
-    border: 1px solid #0073e6; /* Highlight color on focus */
+.book-item {
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 4px;
+    transition: box-shadow 0.3s;
+}
+
+.book-item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect on hover */
+}
+
+.book-item h3 {
+    margin: 0;
 }
 
 button {
@@ -69,6 +77,19 @@ button {
 button:hover {
     background-color: #005bb5; /* Darker on hover */
     transform: translateY(-2px);
+}
+
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border 0.3s;
+}
+
+input[type="text"]:focus, input[type="password"]:focus {
+    border: 1px solid #0073e6; /* Highlight color on focus */
 }
 
 .flashes {

@@ -1,13 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Available Books</h2>
-<div class="book-container">
-    {% for book in books %}
-    <div class="book-item">
-        <h3>{{ book['title'] }}</h3>
-        <p><strong>Author:</strong> {{ book['author'] }}</p>
-        <p><strong>Year:</strong> {{ book['year'] }}</p>
+<div class="container">
+    <h2>Available Books</h2>
+    <div class="book-container">
+        {% for book in books %}
+        <div class="book-item">
+            <h3>{{ book['title'] }}</h3>
+            <p><strong>Author:</strong> {{ book['author'] }}</p>
+            <p><strong>Year:</strong> {{ book['year'] }}</p>
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
+    <a href="{{ url_for('logout') }}">
+        <button>Logout</button>
+    </a>
 </div>
 {% endblock %}
