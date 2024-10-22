@@ -4,3 +4,4 @@ dnspython
 jinja2
 gunicorn
 datetime
+bcrypt
