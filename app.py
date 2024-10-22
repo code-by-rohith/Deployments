@@ -1,12 +1,13 @@
 from flask import Flask, render_template, request, redirect, url_for
 from pymongo import MongoClient
 from bson.objectid import ObjectId
+import os
 
 app = Flask(__name__)
 
 # MongoDB configuration
-client = MongoClient("mongodb+srv://root:lingavani@cluster1.okylwxq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1")
-db = client['library_db']  # Replace with your database name
+client = MongoClient("mongodb+srv://root:lingavani@cluster1.okylwxq.mongodb.net/library_db?retryWrites=true&w=majority")
+db = client['library_db']  # Use your actual database name
 books_collection = db['books']
 
 # Home Route - List all books
@@ -52,11 +53,4 @@ def delete_book(book_id):
     return redirect(url_for('home'))
 
 if __name__ == '__main__':
-<<<<<<< HEAD
-    app.run(debug=True)
-=======
-    with app.app_context():
-        db.create_all()
-    app.run(host='0.0.0.0',debug=True)
-
->>>>>>> fc71da3e78560481f8dd2c21a8d99ed9c37aeb6f
+    app.run(host='0.0.0.0', debug=True)
