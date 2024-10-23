@@ -8,17 +8,17 @@ body {
 
 /* Header/Nav Styles */
 header {
-    background-color: #232f3e; /* Amazon-like navbar color */
+    background-color: #232f3e;
     color: white;
     padding: 10px 20px;
     display: flex;
-    justify-content: space-between; /* Space between title and nav items */
-    align-items: center; /* Center vertically */
+    justify-content: space-between;
+    align-items: center;
 }
 
 h1 {
     margin: 0;
-    flex: 1; /* Allow the title to take available space */
+    flex: 1;
 }
 
 nav {
@@ -38,7 +38,7 @@ nav a:hover {
 /* Main Content Container */
 .container {
     width: 100%;
-    max-width: 1200px; /* Adjusted for larger book list */
+    max-width: 1200px;
     margin: 50px auto;
     padding: 20px;
     background-color: white;
@@ -58,18 +58,17 @@ h2 {
 
 /* Sign-up and login form styles */
 .form-container {
-    width: 100%; /* Full width to adapt to screen size */
-    max-width: 400px; /* Limit the maximum width */
-    height: 400px; /* Set height equal to width for square */
-    margin: 20px auto; /* Center the container */
+    width: 400px;  /* Set width */
+    height: 400px;  /* Set height equal to width for square */
+    margin: 20px auto;
     padding: 20px;
     background-color: white;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Center content vertically */
-    align-items: center; /* Center content horizontally */
+    justify-content: center;
+    align-items: center;
 }
 
 /* Form Styles */
@@ -77,13 +76,13 @@ form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%; /* Ensure form takes full width of container */
+    width: 100%;
 }
 
 form input[type="text"],
 form input[type="password"] {
     width: 100%;
-    max-width: 300px; /* Limit input width for aesthetics */
+    max-width: 300px;
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ccc;
@@ -93,7 +92,7 @@ form input[type="password"] {
 
 form input[type="text"]:focus,
 form input[type="password"]:focus {
-    border: 1px solid #0073e6; /* Highlight color on focus */
+    border: 1px solid #0073e6;
 }
 
 form button {
@@ -114,14 +113,14 @@ form button:hover {
 /* Book List Container */
 .book-container {
     display: flex;
-    flex-wrap: wrap; /* Allow multiple rows */
-    justify-content: space-between; /* Space between items */
-    gap: 20px; /* Space between books */
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
 }
 
 /* Individual Book Item */
 .book-item {
-    flex: 1 1 calc(33.333% - 20px); /* 3 items per row */
+    flex: 1 1 calc(33.333% - 20px);
     border: 1px solid #ccc;
     padding: 15px;
     border-radius: 4px;
@@ -129,25 +128,22 @@ form button:hover {
     transition: box-shadow 0.3s, transform 0.3s;
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Space between content and actions */
+    justify-content: space-between;
 }
 
-/* Hover Effect on Book Item */
 .book-item:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect on hover */
-    transform: scale(1.02); /* Slight scale on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: scale(1.02);
 }
 
-/* Book Title */
 .book-item h3 {
     margin: 0 0 10px 0;
     font-size: 18px;
     color: #333;
 }
 
-/* Book Details */
 .book-details {
-    flex-grow: 1; /* Grow the details section to fill space */
+    flex-grow: 1;
 }
 
 .book-details p {
@@ -157,12 +153,11 @@ form button:hover {
 
 /* Book Action Buttons */
 .book-actions {
-    margin-top: 10px; /* Space above the button actions */
+    margin-top: 10px;
     display: flex;
-    justify-content: space-between; /* Space between buttons */
+    justify-content: space-between;
 }
 
-/* Buttons for Actions (like, edit, delete) */
 button {
     padding: 8px 15px;
     background-color: #0073e6;
@@ -177,7 +172,7 @@ button {
 button:hover {
     background-color: #005bb5;
     transform: translateY(-1px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Shadow on hover */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 /* Flash Messages */
@@ -194,27 +189,27 @@ button:hover {
 }
 
 .flashes .success {
-    background-color: #28a745; /* Success message color */
+    background-color: #28a745;
 }
 
 .flashes .danger {
-    background-color: #dc3545; /* Danger message color */
+    background-color: #dc3545;
 }
 
 .flashes .info {
-    background-color: #17a2b8; /* Info message color */
+    background-color: #17a2b8;
 }
 
 /* Responsive Layout for Medium Screens */
 @media (max-width: 1024px) {
     .book-item {
-        flex: 1 1 calc(50% - 20px); /* 2 items per row on medium screens */
+        flex: 1 1 calc(50% - 20px);
     }
 }
 
 /* Responsive Layout for Small Screens */
 @media (max-width: 768px) {
     .book-item {
-        flex: 1 1 100%; /* 1 item per row on small screens */
+        flex: 1 1 100%;
     }
 }
