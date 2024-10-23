@@ -1,47 +1,28 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container">
-    <h2>Your Library</h2>
+    <h2>Available Books</h2>
     <div class="book-container">
         {% for book in books %}
         <div class="book-item">
-            <a href="{{ url_for('view_book', book_id=book['_id']) }}" class="book-link">
-                <h3>{{ book['title'] }}</h3>
-            </a>
+            <h3>{{ book['title'] }}</h3>
             <p><strong>Author:</strong> {{ book['author'] }}</p>
             <p><strong>Year:</strong> {{ book['year'] }}</p>
-            <p><strong>Likes:</strong> {{ book['likes'] }}</p>
-            <form method="POST" action="{{ url_for('like_book', book_id=book['_id']) }}">
-                <button type="submit">Like</button>
-            </form>
-            <div class="book-actions">
-                <a href="{{ url_for('edit_book', book_id=book['_id']) }}">
-                    <button type="button">Edit</button>
-                </a>
-                <form method="POST" action="{{ url_for('delete_book', book_id=book['_id']) }}" onsubmit="return confirmDelete();">
-                    <button type="submit">Delete</button>
-                </form>
-            </div>
         </div>
         {% endfor %}
     </div>
     <div style="text-align: center; margin-top: 20px;">
-        <a href="{{ url_for('add_book') }}">
-            <button>Add New Book</button>
-        </a>
         <a href="{{ url_for('logout') }}">
-            <button onclick="return confirmLogout()">Logout</button>
+            <button onclick="confirmLogout()">Logout</button>
         </a>
     </div>
 </div>
 
 <script>
-    function confirmDelete() {
-        return confirm('Are you sure you want to delete this book?');
-    }
-
     function confirmLogout() {
-        return confirm('Are you sure you want to logout?');
+        if (!confirm('Are you sure you want to logout?')) {
+            event.preventDefault(); // Prevent logout if user cancels
+        }
     }
 </script>
 {% endblock %}
