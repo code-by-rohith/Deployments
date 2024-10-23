@@ -103,10 +103,13 @@ def add_book():
         title = request.form['title']
         author = request.form['author']
         year = request.form['year']
+        description = request.form.get('description', '')  # New field
         books_collection.insert_one({
             'title': title,
             'author': author,
-            'year': year
+            'year': year,
+            'description': description,
+            'likes': 0  # Initialize likes
         })
         flash('Book added successfully!', 'success')
         return redirect(url_for('home_admin'))
@@ -124,9 +127,10 @@ def edit_book(book_id):
         title = request.form['title']
         author = request.form['author']
         year = request.form['year']
+        description = request.form.get('description', '')  # New field
         books_collection.update_one(
             {'_id': ObjectId(book_id)},
-            {"$set": {'title': title, 'author': author, 'year': year}}
+            {"$set": {'title': title, 'author': author, 'year': year, 'description': description}}
         )
         flash('Book updated successfully!', 'success')
         return redirect(url_for('home_admin'))
@@ -142,6 +146,23 @@ def delete_book(book_id):
     books_collection.delete_one({'_id': ObjectId(book_id)})
     flash('Book deleted successfully!', 'success')
     return redirect(url_for('home_admin'))
+
+# Like Book Route
+@app.route('/like/<book_id>', methods=['POST'])
+def like_book(book_id):
+    if 'username' not in session:
+        flash('You need to log in to like a book.', 'danger')
+        return redirect(url_for('home'))
+
+    books_collection.update_one({'_id': ObjectId(book_id)}, {"$inc": {'likes': 1}})
+    flash('You liked the book!', 'success')
+    return redirect(url_for('home_user'))
+
+# View Book Description Route
+@app.route('/book/<book_id>')
+def view_book(book_id):
+    book = books_collection.find_one({'_id': ObjectId(book_id)})
+    return render_template('book_detail.html', book=book)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
