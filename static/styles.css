@@ -1,3 +1,4 @@
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -9,7 +10,18 @@ header {
     background-color: #232f3e; /* Amazon-like navbar color */
     color: white;
     padding: 10px 20px;
-    text-align: center;
+    display: flex;
+    justify-content: space-between; /* Space between title and nav items */
+    align-items: center; /* Center vertically */
+}
+
+h1 {
+    margin: 0;
+    flex: 1; /* Allow the title to take available space */
+}
+
+nav {
+    display: flex;
 }
 
 nav a {
@@ -22,6 +34,7 @@ nav a:hover {
     text-decoration: underline;
 }
 
+/* Container for main content */
 .container {
     width: 100%;
     max-width: 1200px; /* Adjusted for larger book list */
