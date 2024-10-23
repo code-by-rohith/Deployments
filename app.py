@@ -103,12 +103,10 @@ def add_book():
         title = request.form['title']
         author = request.form['author']
         year = request.form['year']
-        description = request.form.get('description', '')  # Allow admin to add a description
         books_collection.insert_one({
             'title': title,
             'author': author,
-            'year': year,
-            'description': description
+            'year': year
         })
         flash('Book added successfully!', 'success')
         return redirect(url_for('home_admin'))
@@ -126,10 +124,9 @@ def edit_book(book_id):
         title = request.form['title']
         author = request.form['author']
         year = request.form['year']
-        description = request.form.get('description', '')  # Allow admin to update description
         books_collection.update_one(
             {'_id': ObjectId(book_id)},
-            {"$set": {'title': title, 'author': author, 'year': year, 'description': description}}
+            {"$set": {'title': title, 'author': author, 'year': year}}
         )
         flash('Book updated successfully!', 'success')
         return redirect(url_for('home_admin'))
@@ -145,27 +142,6 @@ def delete_book(book_id):
     books_collection.delete_one({'_id': ObjectId(book_id)})
     flash('Book deleted successfully!', 'success')
     return redirect(url_for('home_admin'))
-
-# Book Description and Like Feature (View for Users)
-@app.route('/book/<book_id>', methods=['GET'])
-def view_book(book_id):
-    book = books_collection.find_one({'_id': ObjectId(book_id)})
-    return render_template('book_description.html', book=book)
-
-# Like Feature
-@app.route('/like/<book_id>')
-def like_book(book_id):
-    if 'username' not in session:
-        flash('Please login to like books.', 'danger')
-        return redirect(url_for('login'))
-
-    book = books_collection.find_one({'_id': ObjectId(book_id)})
-    books_collection.update_one(
-        {'_id': ObjectId(book_id)},
-        {"$inc": {'likes': 1}}
-    )
-    flash(f'You liked {book["title"]}!', 'success')
-    return redirect(url_for('view_book', book_id=book_id))
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)

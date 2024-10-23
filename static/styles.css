@@ -72,31 +72,149 @@ h2 {
     align-items: center; /* Center content horizontally */
 }
 
+/* Form Styles */
 form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%; /* Ensure form elements fit within container */
+    width: 100%; /* Ensure form takes full width of container */
 }
 
-input {
-    margin: 10px 0;
+form input[type="text"],
+form input[type="password"] {
+    width: 100%;
+    max-width: 300px; /* Limit input width for aesthetics */
     padding: 10px;
-    width: 90%;
+    margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 4px;
+    transition: border 0.3s;
 }
 
-button {
-    margin-top: 15px;
+form input[type="text"]:focus,
+form input[type="password"]:focus {
+    border: 1px solid #0073e6; /* Highlight color on focus */
+}
+
+form button {
     padding: 10px 20px;
-    background-color: #5cb85c;
+    background-color: #0073e6;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+form button:hover {
+    background-color: #005bb5;
+    transform: translateY(-2px);
+}
+
+/* Book List Container */
+.book-container {
+    display: flex;
+    flex-wrap: wrap; /* Allow multiple rows */
+    justify-content: space-between; /* Space between items */
+    gap: 20px; /* Space between books */
+}
+
+/* Individual Book Item */
+.book-item {
+    flex: 1 1 calc(33.333% - 20px); /* 3 items per row */
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 4px;
+    background-color: #fff;
+    transition: box-shadow 0.3s, transform 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Space between content and actions */
+}
+
+/* Hover Effect on Book Item */
+.book-item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect on hover */
+    transform: scale(1.02); /* Slight scale on hover */
+}
+
+/* Book Title */
+.book-item h3 {
+    margin: 0 0 10px 0;
+    font-size: 18px;
+    color: #333;
+}
+
+/* Book Details */
+.book-details {
+    flex-grow: 1; /* Grow the details section to fill space */
+}
+
+.book-details p {
+    margin: 5px 0;
+    color: #555;
+}
+
+/* Book Action Buttons */
+.book-actions {
+    margin-top: 10px; /* Space above the button actions */
+    display: flex;
+    justify-content: space-between; /* Space between buttons */
+}
+
+/* Buttons for Actions (like, edit, delete) */
+button {
+    padding: 8px 15px;
+    background-color: #0073e6;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 button:hover {
-    background-color: #4cae4c;
+    background-color: #005bb5;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Shadow on hover */
+}
+
+/* Flash Messages */
+.flashes {
+    list-style-type: none;
+    padding: 0;
+}
+
+.flashes li {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    color: white;
+}
+
+.flashes .success {
+    background-color: #28a745; /* Success message color */
+}
+
+.flashes .danger {
+    background-color: #dc3545; /* Danger message color */
+}
+
+.flashes .info {
+    background-color: #17a2b8; /* Info message color */
+}
+
+/* Responsive Layout for Medium Screens */
+@media (max-width: 1024px) {
+    .book-item {
+        flex: 1 1 calc(50% - 20px); /* 2 items per row on medium screens */
+    }
+}
+
+/* Responsive Layout for Small Screens */
+@media (max-width: 768px) {
+    .book-item {
+        flex: 1 1 100%; /* 1 item per row on small screens */
+    }
 }
